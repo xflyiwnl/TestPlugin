@@ -34,6 +34,14 @@ public class TestInventory extends ColorfulProvider<Gui> {
                 .lore(Arrays.asList(
                         "loading time..."
                 ))
+                .update(event -> {
+                    ItemMeta meta = event.getItem().getItemMeta();
+                    meta.setLore(Arrays.asList(
+                            "Current time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                    ));
+                    event.getItem().setItemMeta(meta);
+                    event.getItem().setAmount(LocalDateTime.now().getSecond());
+                })
                 .build();
         getGui().addMask("C", clockItem);
 
